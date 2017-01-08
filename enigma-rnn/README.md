@@ -20,6 +20,8 @@ To train the model:
 * Start in this directory
 * `python main`
 
+Enigma cipher
+--------
 The [Enigma cipher](https://en.wikipedia.org/wiki/Enigma_machine) works like this.
 ![Enigma cipher](../static/enigma.gif?raw=true)
 
