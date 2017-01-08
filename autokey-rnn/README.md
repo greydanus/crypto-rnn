@@ -1,6 +1,6 @@
 Autokey-NN: Decoding the Autokey cipher with Recurrent Neural Networks
 =======
-See [blog post](https://greydanus.github.io/2017/01/01/enigma-rnn/)
+See [blog post](https://greydanus.github.io/2017/01/07/enigma-rnn/)
 
 About
 --------
