@@ -21,7 +21,7 @@ To train the model:
 * `python main`
 
 The [Enigma cipher](https://en.wikipedia.org/wiki/Enigma_machine) works like this.
-![Enigma cipher](static/enigma.gif?raw=true)
+![Enigma cipher](../static/enigma.gif?raw=true)
 
 Dependencies
 --------
