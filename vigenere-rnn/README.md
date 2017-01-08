@@ -14,8 +14,10 @@ To train the model:
 * Start in this directory
 * `python main`
 
+Vigenere cipher
+--------
 The [Vigenere cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) works like this.
-![Vigenere cipher](static/vigenere.gif?raw=true)
+![Vigenere cipher](../static/vigenere.gif?raw=true)
 
 Dependencies
 --------
