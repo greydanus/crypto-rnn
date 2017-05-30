@@ -26,6 +26,6 @@ The [Enigma cipher](https://en.wikipedia.org/wiki/Enigma_machine) works like thi
 
 Dependencies
 --------
-* All code is written in Python 3.6 and TensorFlow 1.1. You will need:
+* All code is written in Python 2.7 (for [crypto_enigma](https://pypi.python.org/pypi/crypto-enigma) to work) and TensorFlow 1.1. You will need:
  * NumPy
  * [TensorFlow](https://www.tensorflow.org/install/)

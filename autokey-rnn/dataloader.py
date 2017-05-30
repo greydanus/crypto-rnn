@@ -50,6 +50,11 @@ class Dataloader():
         for _ in range(batch_size):
             ys = self.rands(self.tsteps)
             ks = self.rands(np.random.randint(self.max_key_len-1) + 1)
+            # print(ks, self.A[:1])
+            if ks is (self.A[:self.max_key_len]): # lets us check for overfitting later #self.key_len
+                ks_ = ks
+                ks = self.rands(np.random.randint(self.max_key_len-1) + 1)
+                # print('conflict! key was "{}" but now is "{}"'.format(ks_, ks))
             Xs = self.encode(ks, ys)
             ks += '-'*(self.max_key_len - len(ks))
             if verbose: print(Xs, ks, ys)

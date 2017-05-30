@@ -33,6 +33,11 @@ class Dataloader():
         for _ in range(batch_size):
             ys = self.rands(self.tsteps).decode('unicode-escape')
             ks = self.rands(self.key_len)
+            
+            if ks is (self.A[:self.key_len]): # lets us check for overfitting later
+                ks_ = ks
+                ks = self.rands(self.key_len)
+
             Xs = self.encode(ks, ys)
             X = self.one_hot(ks + Xs)
             y = self.one_hot(ks + ys)
