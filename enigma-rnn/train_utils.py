@@ -33,9 +33,9 @@ def sample(model, dataloader):
         ix = np.squeeze(ix[0])
         decoded += dataloader.A[ix]
     
-    print "plaintext is:  '{}'".format("-"*len(key) + plaintext)
-    print "ciphertext is: '{}'".format(ciphertext)
-    print "prediction is: '{}'".format(decoded)
+    print( "plaintext is:  '{}'".format("-"*len(key) + plaintext) )
+    print( "ciphertext is: '{}'".format(ciphertext) )
+    print( "prediction is: '{}'".format(decoded) )
     return plaintext, decoded
 
 # train loop
@@ -56,9 +56,9 @@ def train(model, dataloader, FLAGS):
         running_loss = train_loss if running_loss is None else 0.99*running_loss + 0.01*train_loss
         
         if global_step%FLAGS.print_every == 0:
-            print "\tstep {}, loss {:3f}, batch time {:3f}".format(global_step, running_loss*100, (time.time()-start)/100)
+            print( "\tstep {}, loss {:3f}, batch time {:3f}".format(global_step, running_loss*100, (time.time()-start)/100) )
             start = time.time()
         if global_step%FLAGS.save_every == 0 and global_step!=0:
             model.save(global_step)
-            print "SAVED MODEL #{}".format(global_step)
-            print "ACCURACY: {:3f}%".format(accuracy(model,dataloader))
+            print( "SAVED MODEL #{}".format(global_step) )
+            print( "ACCURACY: {:3f}%".format(accuracy(model,dataloader)) )

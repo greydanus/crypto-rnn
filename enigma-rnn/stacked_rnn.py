@@ -30,7 +30,7 @@ class StackedRNN():
         with tf.variable_scope(self.scope,reuse=False):
             for i in range(ncells):
                 cell = layers[i]
-                cell['rnn'] = tf.nn.rnn_cell.LSTMCell(rnn_size, state_is_tuple=True, initializer=rnn_init)
+                cell['rnn'] = tf.contrib.rnn.LSTMCell(rnn_size, state_is_tuple=True, initializer=rnn_init)
                 cell['istate_batch'] = cell['rnn'].zero_state(batch_size=batch_size, dtype=tf.float32)
                 cell['istate'] = cell['rnn'].zero_state(batch_size=1, dtype=tf.float32)
             layers[-1]['W_fc1'] = tf.get_variable("W_fc1", [rnn_size, ylen], initializer=xavier_dense)
@@ -43,7 +43,7 @@ class StackedRNN():
         self.grads = self.optimizer.compute_gradients(self.loss, var_list=tf.trainable_variables())
         self.train_op = self.optimizer.apply_gradients(self.grads)
 
-        self.sess.run(tf.initialize_all_variables())
+        self.sess.run(tf.global_variables_initializer())
         self.reset_states()
         
     def reset_states(self):
@@ -54,14 +54,14 @@ class StackedRNN():
     def forward(self, tsteps, reuse):
         with tf.variable_scope(self.scope, reuse=reuse):
             x = tf.reshape(self.x, [-1, self.xlen])
-            hs = [tf.squeeze(h_, [1]) for h_ in tf.split(1, tsteps, tf.reshape(x, [-1, tsteps, self.xlen]))]
+            hs = [tf.squeeze(h_, [1]) for h_ in tf.split(tf.reshape(x, [-1, tsteps, self.xlen]), tsteps, 1)]
 
             for i in range(self.ncells):
                 state = self.layers[i]['istate'] if tsteps is 1 else self.layers[i]['istate_batch']
                 cell = self.layers[i]['rnn']
                 cell_scope = self.scope + '_cell' + str(i)
-                hs, self.layers[i]['fstate'] = tf.nn.seq2seq.rnn_decoder(hs, state, cell, scope=cell_scope)
-            rnn_out = tf.reshape(tf.concat(1, hs), [-1, self.rnn_size])
+                hs, self.layers[i]['fstate'] = tf.contrib.legacy_seq2seq.rnn_decoder(hs, state, cell, scope=cell_scope)
+            rnn_out = tf.reshape(tf.concat(hs, 1), [-1, self.rnn_size])
             rnn_out = tf.nn.dropout(rnn_out, self.keep_prob)
 
             logps = tf.matmul(rnn_out, self.layers[-1]['W_fc1'])
@@ -116,21 +116,20 @@ class StackedRNN():
 
     def count_params(self):
         # tf parameter overview
-        total_parameters = 0 ; print "Model overview:"
+        total_parameters = 0 ; print( "Model overview:" )
         for variable in tf.trainable_variables():
             shape = variable.get_shape()
             variable_parameters = 1
             for dim in shape:
                 variable_parameters *= dim.value
-            print '\tvariable "{}" has {} parameters' \
-                .format(variable.name, variable_parameters)
+            print( '\tvariable "{}" has {} parameters'.format(variable.name, variable_parameters) )
             total_parameters += variable_parameters
-        print "Total of {} parameters".format(total_parameters)
+        print( "Total of {} parameters".format(total_parameters) )
 
     def try_load_model(self):
         # load saved model, if any
         global_step = 0
-        self.saver = tf.train.Saver(tf.all_variables())
+        self.saver = tf.train.Saver(tf.global_variables())
         load_was_success = True # yes, I'm being optimistic
         try:
             save_dir = '/'.join(self.save_path.split('/')[:-1])
@@ -138,11 +137,11 @@ class StackedRNN():
             load_path = ckpt.model_checkpoint_path
             self.saver.restore(self.sess, load_path)
         except:
-            print "no saved model to load. starting new session"
+            print( "no saved model to load. starting new session")
             load_was_success = False
         else:
-            print "loaded model: {}".format(load_path)
-            self.saver = tf.train.Saver(tf.all_variables())
+            print( "loaded model: {}".format(load_path) )
+            self.saver = tf.train.Saver(tf.global_variables())
             global_step = int(load_path.split('-')[-1])
         return global_step
 

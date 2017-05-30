@@ -1,4 +1,4 @@
-Crypto-NN: Decoding Polyalphabetic Ciphers with Recurrent Neural Networks
+Crypto-RNN: Decoding Polyalphabetic Ciphers with Recurrent Neural Networks
 =======
 See [blog post](https://greydanus.github.io/2017/01/07/enigma-rnn/)
 
@@ -18,6 +18,6 @@ The [Enigma cipher](https://en.wikipedia.org/wiki/Enigma_machine) works like thi
 
 Dependencies
 --------
-* All code is written in Python 2.7 and TensorFlow. You will need:
- * Numpy
- * [TensorFlow](https://www.tensorflow.org/versions/master/get_started/os_setup.html#pip_install)
+* All code is written in Python 3.6 and TensorFlow 1.1. You will need:
+ * NumPy
+ * [TensorFlow](https://www.tensorflow.org/install/)

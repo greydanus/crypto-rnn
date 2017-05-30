@@ -1,4 +1,4 @@
-Enigma-NN: Decoding the Enigma with Recurrent Neural Networks
+Enigma-RNN: Decoding the Enigma with Recurrent Neural Networks
 =======
 See [blog post](https://greydanus.github.io/2017/01/07/enigma-rnn/)
 
@@ -6,19 +6,18 @@ About
 --------
 Contains the code for training an RNN (LSTM cell) to decode the Enigma cipher.
 
-**To download a pretrained model.**
+To download a trained model:
 * Start in this directory
-* `mkdir models`
-* `cd models`
-* `wget http://caligari.dartmouth.edu/~sgreydan/crypto-nn/enigma-rnn/models/checkpoint`
+* **NOTE:** when upgrading this repo to work with TensorFlow 1.1 / Python 3.6, I was unable to load the models I had trained with old TensorFlow. I'm currently retraining the saved model. Until I have this fixed, you'll have to train your own models.
+* `wget http://caligari.dartmouth.edu/~sgreydan/crypto-rnn/enigma-rnn/saved.tar.gz && tar -zxvf saved.tar.gz`
 
 To test the model:
 * Start in this directory
-* `python main --train False`
+* `python main.py --train False`
 
 To train the model:
 * Start in this directory
-* `python main`
+* `python main.py`
 
 Enigma cipher
 --------
@@ -27,6 +26,6 @@ The [Enigma cipher](https://en.wikipedia.org/wiki/Enigma_machine) works like thi
 
 Dependencies
 --------
-* All code is written in Python 2.7 and TensorFlow. You will need:
- * Numpy
- * [TensorFlow](https://www.tensorflow.org/versions/master/get_started/os_setup.html#pip_install)
+* All code is written in Python 3.6 and TensorFlow 1.1. You will need:
+ * NumPy
+ * [TensorFlow](https://www.tensorflow.org/install/)

@@ -26,15 +26,15 @@ FLAGS = tf.app.flags.FLAGS
 
 dataloader = Dataloader(FLAGS.A, tsteps=FLAGS.tsteps, max_key_len=FLAGS.key_len) # class for synthesizing data
 model = StackedRNN(xlen=len(FLAGS.A) + 1, ylen=len(FLAGS.A) + 1, FLAGS=FLAGS) # model for analyzing the data
-print "="*5 + " COUNTING MODEL PARAMETERS " + "="*5
+print("="*5, " COUNTING MODEL PARAMETERS ", "="*5)
 model.count_params()
-print "="*37
+print("="*37)
 
 # train model
 if FLAGS.train: train(model, dataloader, FLAGS)
 
 # evaluate model (quantitatively first, then qualitatively)
 global_step = model.try_load_model()
-print "accuracy is: {:3f}%".format(accuracy(model,dataloader))
+print("accuracy is: {:3f}%".format(accuracy(model,dataloader)))
 
-for _ in range(5): sample(model, dataloader) ; print "\n"
+for _ in range(5): sample(model, dataloader) ; print("\n")

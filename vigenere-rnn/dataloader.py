@@ -50,7 +50,7 @@ class Dataloader():
             ks = self.rands(np.random.randint(self.max_key_len) + 1)
             Xs = self.encode(ks, ys)
             ks += '-'*(self.max_key_len - len(ks))
-            if verbose: print Xs, ks, ys
+            if verbose: print( Xs, ks, ys )
             X = self.one_hot(ks + Xs)
             y = self.one_hot(ks + ys)
             batch_X.append(X)
