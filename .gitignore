@@ -1,0 +1,18 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+
+##### FILE TYPES #####
+
+*.tar
+*.pt
+.DS_Store
+*.pyc
+
+##### DIRECTORIES #####
+
+.ipynb_checkpoints/*
+
+
+##### NAMES #####
+
+*ubyte
