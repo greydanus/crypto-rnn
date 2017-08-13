@@ -2,7 +2,7 @@
 =======
 See [paper]() and [blog post](https://greydanus.github.io/2017/01/07/enigma-rnn/)
 
-![concept](static/concept.png)
+![concept-small](static/concept-small.png)
 
 About
 --------
