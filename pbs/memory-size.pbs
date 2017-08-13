@@ -1,0 +1,12 @@
+#!/bin/bash -l
+#PBS -N memory-size
+#PBS -q default
+#PBS -l nodes=1:gpus=2
+#PBS -l walltime=25:30:00
+#PBS -l feature="gpu|cent7"
+cd /ihome/sgreydan/crypto-rnn/
+module load python/2.7-GPU
+module load cuda/8.0-cuDNNv6
+which python
+python main.py --cipher "vigenere" --total_steps 250000  --rnn_size 256 --tsteps 20 --acc_every 500 --lr 5e-4 --batch_size 50 --key_len 6 --vary_mem True
+python main.py --cipher "autokey" --total_steps 250000  --rnn_size 256 --tsteps 20 --acc_every 500 --lr 5e-4 --batch_size 50 --key_len 6 --vary_mem True
