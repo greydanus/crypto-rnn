@@ -23,3 +23,27 @@ Dependencies
 * All code is written in Python 3.6 and TensorFlow 1.1. You will need:
  * NumPy
  * [TensorFlow](https://www.tensorflow.org/install/)
+
+Docker
+--------
+```console
+foo@bar:~$ docker build -t crypto-rnn .  # Build context
+...
+foo@bar:~$ docker run -v $(pwd):/opt/app --entypoint=/bin/bash -it --rm crypto-rnn # Real time dev
+docker@shell:~$ exit
+exit
+foo@bar:~$ docker run -it --rm crypto-rnn # Just RUN
+===== COUNTING MODEL PARAMETERS =====
+Model overview:
+        variable "model/W_fc1:0" has 6912 parameters
+        variable "model/model_cell0/lstm_cell/kernel:0" has 289792 parameters
+        variable "model/model_cell0/lstm_cell/bias:0" has 1024 parameters
+Total of 297728 parameters
+=====================================
+
+no saved model to load. starting new session
+        resetting log files...
+training...
+        step:     100 | loss: 46.234 | data time: 0.0073 sec | rnn time: 0.1224 sec | total time: 0.1297 sec
+...
+```
